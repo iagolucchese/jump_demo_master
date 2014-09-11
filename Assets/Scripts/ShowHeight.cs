@@ -37,6 +37,6 @@ public class ShowHeight : MonoBehaviour {
 		}
 
 		// Display the height with one decimal place
-		text.text = string.Format("{0:f1}", maxHeight); 
+		text.text = string.Format("Height: {0:f1} Speed:{1:f1}", maxHeight, target.rigidbody2D.velocity.y); 
 	}
 }

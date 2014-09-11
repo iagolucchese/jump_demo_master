@@ -5,21 +5,24 @@ using System.Collections;
 public class Spawner : MonoBehaviour {
 
 	// The object we want to spawn
-	public GameObject spawnType;
-	// Spawn every 3 seconds
-	public float delay = 3f;
+	public GameObject obstaclePrefab;
+	public GameObject bouncerPrefab;
 
-	// How much time has currently elapse?
+	// Spawn every 3 seconds
+	public float obstacleDelay = 3.5f;
+	public float bouncerDelay = 2f;
+
+	// How much time has currently elapsed?
 	float time = 0f;
 
 	// Do some error-checking
 	void Start() {
-		if (spawnType == null) {
-			Debug.LogError("Missing a spawn type in Spawner");
+		if (obstaclePrefab == null || bouncerPrefab == null) {
+			Debug.LogError("Missing a spawn type in either spawner");
 			Destroy(this);
 		} else {
-			// Spawn the first one immediately
-			time = delay;
+			// Spawn the first bouncer immediately
+			//time = bouncerDelay;
 		}
 	}
 
@@ -28,24 +31,44 @@ public class Spawner : MonoBehaviour {
 		time += Time.deltaTime;
 
 		// We've completed our delay, so spawn and reset the timer
-		if (time >= delay) {
+		if (time >= obstacleDelay) {
 			// Subtracting rather than setting to zero keeps us from losing the little bit of time
 			//  if the time isn't exactly the delay
-			time -= delay;
+			obstacleDelay += 3.5f; //not the best solution
 
 			// Choose a random x (that's close to the center so we don't have to worry about hanging
 			//  off the screen
 			float posX = Random.Range(-2f,2f);
 
 			// Create our new item
-			GameObject spawn = Instantiate(spawnType) as GameObject;
+			GameObject obstacle = Instantiate(obstaclePrefab) as GameObject;
 			// Give it the correct position
-			spawn.transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+			obstacle.transform.position = new Vector3(posX, transform.position.y, transform.position.z);
 			// Give it a semi-random downward push
-			//spawn.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
+			//ObstaclePrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
 
 			// Now, make it a little harder
-			delay += Random.Range(0.1f, 0.5f);
+			obstacleDelay += Random.Range(0.5f, 1f);
+		}
+
+		if (time >= bouncerDelay) {
+			// Subtracting rather than setting to zero keeps us from losing the little bit of time
+			//  if the time isn't exactly the delay
+			bouncerDelay += 2f; //not the best solution
+			
+			// Choose a random x (that's close to the center so we don't have to worry about hanging
+			//  off the screen
+			float posX = Random.Range(-2f,2f);
+			
+			// Create our new item
+			GameObject bouncer = Instantiate(bouncerPrefab) as GameObject;
+			// Give it the correct position
+			bouncer.transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+			// Give it a semi-random downward push
+			//bouncerPrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
+			
+			// Now, make it a little harder
+			bouncerDelay += Random.Range(0.5f, 1f);
 		}
 	}
 }
