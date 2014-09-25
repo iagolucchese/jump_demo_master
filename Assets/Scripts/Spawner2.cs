@@ -8,7 +8,7 @@ public class Spawner2 : MonoBehaviour {
 	public GameObject obstaclePrefab;
 	public GameObject bouncerPrefab;
 
-	// Spawn every 3 seconds
+	// Spawn every X seconds
 	public float obstacleDelay = 3.5f;
 	public float bouncerDelay = 2f;
 
@@ -18,7 +18,7 @@ public class Spawner2 : MonoBehaviour {
 	// Do some error-checking
 	void Start() {
 		if (obstaclePrefab == null || bouncerPrefab == null) {
-			Debug.LogError("Missing a spawn type in either spawner");
+			Debug.LogError("Missing a spawn type in either or both spawners");
 			Destroy(this);
 		} else {
 			// Spawn the first bouncer immediately
@@ -38,7 +38,7 @@ public class Spawner2 : MonoBehaviour {
 
 			// Choose a random x (that's close to the center so we don't have to worry about hanging
 			//  off the screen
-			float posX = Random.Range(-transform.localScale.x/4,-transform.localScale.x/4);
+			float posX = Random.Range(-transform.localScale.x/4,transform.localScale.x/4);
 
 			// Create our new item
 			GameObject obstacle = Instantiate(obstaclePrefab) as GameObject;
@@ -58,8 +58,8 @@ public class Spawner2 : MonoBehaviour {
 			
 			// Choose a random x (that's close to the center so we don't have to worry about hanging
 			//  off the screen
-			float posX = Random.Range(-2f,2f);
-			
+			float posX = Random.Range(-transform.localScale.x/4,transform.localScale.x/4);
+
 			// Create our new item
 			GameObject bouncer = Instantiate(bouncerPrefab) as GameObject;
 			// Give it the correct position

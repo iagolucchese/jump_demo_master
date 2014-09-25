@@ -6,6 +6,7 @@ public class MouseFollowLerp : MonoBehaviour {
 
 	public bool followX = true;
 	public bool followY = true;
+	public float speedOfFollow = 0.1f;
 
 	// Every frame, jump to the current mouse position
 	void Update () {
@@ -16,7 +17,7 @@ public class MouseFollowLerp : MonoBehaviour {
 		// Ignore the z-position since we're working in 2D
 		worldPos.z = transform.position.z;
 
-		worldPos = (worldPos - transform.position) * 0.1f + transform.position;
+		worldPos = (worldPos - transform.position) * speedOfFollow + transform.position;
 
 		// Lock the x or y axes if they're not being followed
 		if (!followX) {
