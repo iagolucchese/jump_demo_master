@@ -21,5 +21,6 @@ public class Stretcher : MonoBehaviour {
 
 	public void StretchThis() {
 		timeElapsed = 0;
+		particleSystem.Play();
 	}
 }

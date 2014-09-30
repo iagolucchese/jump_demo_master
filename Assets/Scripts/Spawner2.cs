@@ -38,12 +38,12 @@ public class Spawner2 : MonoBehaviour {
 
 			// Choose a random x (that's close to the center so we don't have to worry about hanging
 			//  off the screen
-			float posX = Random.Range(-transform.localScale.x/4,transform.localScale.x/4);
+			float posX = Random.Range(-transform.localScale.x/5,transform.localScale.x/5);
 
 			// Create our new item
 			GameObject obstacle = Instantiate(obstaclePrefab) as GameObject;
 			// Give it the correct position
-			obstacle.transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+			obstacle.transform.position = new Vector3(posX, transform.position.y, transform.position.z+1);
 			// Give it a semi-random downward push
 			//ObstaclePrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
 
@@ -63,7 +63,7 @@ public class Spawner2 : MonoBehaviour {
 			// Create our new item
 			GameObject bouncer = Instantiate(bouncerPrefab) as GameObject;
 			// Give it the correct position
-			bouncer.transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+			bouncer.transform.position = new Vector3(posX, transform.position.y, transform.position.z+1);
 			// Give it a semi-random downward push
 			//bouncerPrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
 			
