@@ -28,7 +28,7 @@ public class SinRotation : MonoBehaviour {
 			//newPos.x += delta * curStrength;
 			transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + degrees);
 		} else {
-			transform.rotation = Quaternion.Euler(Vector3.zero);
+			//transform.rotation = Quaternion.Euler(Vector3.zero);
 		}
 	}
 
