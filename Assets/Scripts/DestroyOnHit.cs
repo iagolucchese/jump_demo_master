@@ -11,6 +11,6 @@ public class DestroyOnHit : MonoBehaviour {
 			Debug.Log ("Game over");
 		}
 
-		Destroy(other.gameObject);
+		Destroy(other.gameObject,4);
 	}
 }

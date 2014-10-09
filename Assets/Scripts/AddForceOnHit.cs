@@ -11,7 +11,7 @@ public class AddForceOnHit : MonoBehaviour {
 		if (other.tag != "Player") {
 			return;
 		}
-
+		other.gameObject.audio.Play();
 		other.rigidbody2D.AddForce(force);
 	}
 }
