@@ -6,8 +6,8 @@ public class ForcesController : MonoBehaviour {
 	public ShakeCamera cameraToShake;
 
 	public void SlowForce() {
-		rigidbody2D.velocity /= 3; //cuts current speed
-		rigidbody2D.velocity -= new Vector2(0f,1f);
+		rigidbody2D.velocity -= rigidbody2D.velocity/3; //cuts current speed
+		//rigidbody2D.velocity -= new Vector2(0f,1f);
 
 		cameraToShake.StartShake();
 	}

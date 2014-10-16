@@ -5,7 +5,7 @@ using System.Collections;
 public class Spawner2 : MonoBehaviour {
 
 	// The object we want to spawn
-	public GameObject obstaclePrefab;
+	public GameObject[] obstaclePrefabs;
 	public GameObject bouncerPrefab;
 
 	// Spawn every X seconds
@@ -13,11 +13,11 @@ public class Spawner2 : MonoBehaviour {
 	public float bouncerDelay = 2f;
 
 	// How much time has currently elapsed?
-	float time = 0f;
+	float timeElapsed = 0f;
 
 	// Do some error-checking
 	void Start() {
-		if (obstaclePrefab == null || bouncerPrefab == null) {
+		if (obstaclePrefabs == null || bouncerPrefab == null) {
 			Debug.LogError("Missing a spawn type in either or both spawners");
 			Destroy(this);
 		} else {
@@ -28,10 +28,10 @@ public class Spawner2 : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		time += Time.deltaTime;
+		timeElapsed += Time.deltaTime;
 
 		// We've completed our delay, so spawn and reset the timer
-		if (time >= obstacleDelay) {
+		if (timeElapsed >= obstacleDelay) {
 			// Subtracting rather than setting to zero keeps us from losing the little bit of time
 			//  if the time isn't exactly the delay
 			obstacleDelay += 3.5f; //not the best solution
@@ -41,17 +41,17 @@ public class Spawner2 : MonoBehaviour {
 			float posX = Random.Range(-transform.localScale.x/5,transform.localScale.x/5);
 
 			// Create our new item
-			GameObject obstacle = Instantiate(obstaclePrefab) as GameObject;
+			GameObject obstacle = Instantiate(obstaclePrefabs[Random.Range(0,obstaclePrefabs.Length)]) as GameObject;
 			// Give it the correct position
 			obstacle.transform.position = new Vector3(posX, transform.position.y, transform.position.z+4);
 			// Give it a semi-random downward push
 			//ObstaclePrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
 
 			// Now, make it a little harder
-			obstacleDelay += Random.Range(0.5f, 1f);
+			//obstacleDelay += Random.Range(0.5f, 1f);
 		}
 
-		if (time >= bouncerDelay) {
+		if (timeElapsed >= bouncerDelay) {
 			// Subtracting rather than setting to zero keeps us from losing the little bit of time
 			//  if the time isn't exactly the delay
 			bouncerDelay += 2f; //not the best solution
@@ -68,7 +68,7 @@ public class Spawner2 : MonoBehaviour {
 			//bouncerPrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
 			
 			// Now, make it a little harder
-			bouncerDelay += Random.Range(0.5f, 1f);
+			//bouncerDelay += Random.Range(0.5f, 1f);
 		}
 	}
 }

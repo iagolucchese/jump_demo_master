@@ -13,7 +13,8 @@ public class ForceStopper : MonoBehaviour {
 
 		other.GetComponent<ForcesController>().SlowForce();
 
-		particleSystem.Play();
-		GetComponentInChildren<ParticleSystem>().Play();
+		foreach (ParticleSystem ps in GetComponentsInChildren<ParticleSystem>()) {
+			ps.Play();
+		}
 	}
 }
