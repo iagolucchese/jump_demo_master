@@ -4,71 +4,46 @@ using System.Collections;
 // Spawns a given prefab occasionally at a random x position
 public class Spawner2 : MonoBehaviour {
 
-	// The object we want to spawn
 	public GameObject[] obstaclePrefabs;
-	public GameObject bouncerPrefab;
+	public float minObstacleDelay = 1f;
+	public float maxObstacleDelay = 2f;
 
-	// Spawn every X seconds
-	public float obstacleDelay = 3.5f;
-	public float bouncerDelay = 2f;
+	public GameObject platformPrefab;
+	public float minPlatformDelay = 1.5f;
+	public float maxPlatformDelay = 2.5f;
 
-	// How much time has currently elapsed?
-	float timeElapsed = 0f;
+	private float timeElapsed = 0f;
+	private float currentObstacleDelay = 0f;
+	private float currentPlatformDelay = 0f;
 
-	// Do some error-checking
 	void Start() {
-		if (obstaclePrefabs == null || bouncerPrefab == null) {
+		if (obstaclePrefabs == null || platformPrefab == null) {
 			Debug.LogError("Missing a spawn type in either or both spawners");
 			Destroy(this);
 		} else {
-			// Spawn the first bouncer immediately
-			//time = bouncerDelay;
+			//time = platformDelay;
 		}
+		currentObstacleDelay = Random.Range(minObstacleDelay,maxObstacleDelay);
+		currentPlatformDelay = Random.Range(minPlatformDelay,maxPlatformDelay);
 	}
 
-	// Update is called once per frame
 	void Update () {
 		timeElapsed += Time.deltaTime;
 
-		// We've completed our delay, so spawn and reset the timer
-		if (timeElapsed >= obstacleDelay) {
-			// Subtracting rather than setting to zero keeps us from losing the little bit of time
-			//  if the time isn't exactly the delay
-			obstacleDelay += 3.5f; //not the best solution
+		if (timeElapsed >= currentObstacleDelay) {
+			currentObstacleDelay += Random.Range(minObstacleDelay,maxObstacleDelay); //not the best solution
 
-			// Choose a random x (that's close to the center so we don't have to worry about hanging
-			//  off the screen
 			float posX = Random.Range(-transform.localScale.x/5,transform.localScale.x/5);
-
-			// Create our new item
 			GameObject obstacle = Instantiate(obstaclePrefabs[Random.Range(0,obstaclePrefabs.Length)]) as GameObject;
-			// Give it the correct position
 			obstacle.transform.position = new Vector3(posX, transform.position.y, transform.position.z+4);
-			// Give it a semi-random downward push
-			//ObstaclePrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
-
-			// Now, make it a little harder
-			//obstacleDelay += Random.Range(0.5f, 1f);
 		}
 
-		if (timeElapsed >= bouncerDelay) {
-			// Subtracting rather than setting to zero keeps us from losing the little bit of time
-			//  if the time isn't exactly the delay
-			bouncerDelay += 2f; //not the best solution
-			
-			// Choose a random x (that's close to the center so we don't have to worry about hanging
-			//  off the screen
-			float posX = Random.Range(-transform.localScale.x/4,transform.localScale.x/4);
+		if (timeElapsed >= currentPlatformDelay) {
+			currentPlatformDelay += Random.Range(minPlatformDelay,maxPlatformDelay); //not the best solution
 
-			// Create our new item
-			GameObject bouncer = Instantiate(bouncerPrefab) as GameObject;
-			// Give it the correct position
-			bouncer.transform.position = new Vector3(posX, transform.position.y, transform.position.z+4);
-			// Give it a semi-random downward push
-			//bouncerPrefab.rigidbody2D.AddForce(new Vector2(0, Random.Range (-50, -100)));
-			
-			// Now, make it a little harder
-			//bouncerDelay += Random.Range(0.5f, 1f);
+			float posX = Random.Range(-transform.localScale.x/4,transform.localScale.x/4);
+			GameObject platform = Instantiate(platformPrefab) as GameObject;
+			platform.transform.position = new Vector3(posX, transform.position.y, transform.position.z+4);
 		}
 	}
 }

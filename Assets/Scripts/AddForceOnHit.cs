@@ -12,6 +12,6 @@ public class AddForceOnHit : MonoBehaviour {
 			return;
 		}
 		other.gameObject.audio.Play();
-		other.rigidbody2D.AddForce(force);
+		other.gameObject.GetComponent<ForcesController>().AddForce(force);
 	}
 }

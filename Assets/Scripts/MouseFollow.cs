@@ -8,9 +8,7 @@ public class MouseFollow : MonoBehaviour {
 	public bool followY = true;
 	public float speedOfFollow = 0.05f;
 
-	public float tiltMinDistance = 0.2f;
-	public float tiltMaxDistance = 1f;
-	public float tiltDegrees = 30f;
+	public float limitXaxisMovementBy = 7.5f;
 
 	// Every frame, jump to the current mouse position
 	void Update () {
@@ -21,11 +19,12 @@ public class MouseFollow : MonoBehaviour {
 		// Ignore the z-position since we're working in 2D
 		worldPos.z = transform.position.z;
 
-		//tilt code
-		//transform.LookAt(worldPos);
-
 		//follow code
 		worldPos = (worldPos - transform.position) * speedOfFollow + transform.position;
+		if (worldPos.x > limitXaxisMovementBy)
+			worldPos.x = limitXaxisMovementBy;
+		else if (worldPos.x < -limitXaxisMovementBy)
+			worldPos.x = -limitXaxisMovementBy;
 
 		// Lock the x or y axes if they're not being followed
 		if (!followX) {
