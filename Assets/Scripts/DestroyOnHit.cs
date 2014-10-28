@@ -9,6 +9,8 @@ public class DestroyOnHit : MonoBehaviour {
 		// If it's the player, debug that the game is over
 		if (other.gameObject.tag == "Player") {
 			Debug.Log ("Game over");
+			Destroy (other.gameObject);
+			return;
 		}
 
 		Destroy(other.gameObject,4);
