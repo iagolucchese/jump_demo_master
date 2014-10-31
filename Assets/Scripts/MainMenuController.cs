@@ -24,11 +24,11 @@ public class MainMenuController : MonoBehaviour {
 	void OnGUI() {
 		GUI.Box (new Rect(boxOffset.x,boxOffset.y,boxSize.x,boxSize.y),"");
 
-		if(GUI.Button(new Rect(playButtonOffset.x,playButtonOffset.y,buttonSize.x,buttonSize.y), "Begin Mayhem")) {
+		if(GUI.Button(new Rect(playButtonOffset.x,playButtonOffset.y,buttonSize.x,buttonSize.y), "Play Game")) {
 			StartGame();
 		}
 
-		if(GUI.Button(new Rect(quitButtonOffset.x,quitButtonOffset.y,buttonSize.x,buttonSize.y), "Leave it Behind")) {
+		if(GUI.Button(new Rect(quitButtonOffset.x,quitButtonOffset.y,buttonSize.x,buttonSize.y), "Quit")) {
 			Application.Quit();
 		}
 	}
